@@ -1,0 +1,17 @@
+.DS_Store
+__pycache__/
+*.pyc
+
+# Java
+target/
+*.class
+
+# C
+*.o
+*.out
+
+# Generated benchmark data
+
+# IDE
+.idea/
+.vscode/
