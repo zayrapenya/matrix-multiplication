@@ -20,3 +20,4 @@ target/
 c/benchmark
 c/correctness
 c/test_real_data
+c/memory_benchmark

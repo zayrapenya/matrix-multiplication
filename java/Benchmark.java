@@ -1,6 +1,7 @@
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class Benchmark {
 
@@ -89,9 +90,11 @@ public class Benchmark {
 
     public static void main(String[] args) throws Exception {
 
-        try (PrintWriter writer =
-                new PrintWriter(new FileWriter(
-                        "data/results/java_results.csv"))) {
+    Locale.setDefault(Locale.US);
+
+    try (PrintWriter writer =
+            new PrintWriter(new FileWriter(
+                    "data/results/java_results.csv")))  {
 
             writer.println(
                 "language,n,warmup_runs,measured_runs," +
