@@ -135,10 +135,19 @@ int main(void) {
         "w"
     );
 
-    if (output == NULL) {
+    FILE *raw_output = fopen(
+        "data/results/raw/c_raw.csv",
+        "w"
+    );
+
+    if (output == NULL || raw_output == NULL) {
         perror("Could not open output file");
+        if (output != NULL) fclose(output);
+        if (raw_output != NULL) fclose(raw_output);
         return EXIT_FAILURE;
     }
+
+    fprintf(raw_output, "language,n,run,seconds\n");
 
     fprintf(
         output,
@@ -184,6 +193,16 @@ int main(void) {
 
         benchmark(A, B, n, times);
 
+        for (int i = 0; i < MEASURED_RUNS; i++) {
+            fprintf(
+                raw_output,
+                "C,%d,%d,%.9f\n",
+                n,
+                i + 1,
+                times[i]
+            );
+        }
+
         double med = median(times, MEASURED_RUNS);
         double q1 = percentile(times, MEASURED_RUNS, 0.25);
         double q3 = percentile(times, MEASURED_RUNS, 0.75);
@@ -210,9 +229,14 @@ int main(void) {
     }
 
     fclose(output);
+    fclose(raw_output);
 
     printf(
         "\nResults saved to data/results/c_results.csv\n"
+    );
+
+    printf(
+        "Raw measurements saved to data/results/raw/c_raw.csv\n"
     );
 
     return EXIT_SUCCESS;

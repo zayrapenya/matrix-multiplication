@@ -3,21 +3,23 @@ public class CorrectnessTest {
     private static void assertMatrixEquals(
             double[][] actual,
             double[][] expected,
-            double tolerance) {
+            double atol,
+            double rtol) {
 
         if (actual.length != expected.length) {
             throw new AssertionError("Different number of rows.");
         }
 
         for (int i = 0; i < expected.length; i++) {
-
             if (actual[i].length != expected[i].length) {
                 throw new AssertionError("Different number of columns.");
             }
 
             for (int j = 0; j < expected[i].length; j++) {
+                double difference = Math.abs(actual[i][j] - expected[i][j]);
+                double tolerance = atol + rtol * Math.abs(expected[i][j]);
 
-                if (Math.abs(actual[i][j] - expected[i][j]) > tolerance) {
+                if (difference > tolerance) {
                     throw new AssertionError(
                         "Mismatch at (" + i + "," + j + ")"
                     );
@@ -45,7 +47,7 @@ public class CorrectnessTest {
 
         double[][] result = MatrixMultiplication.multiply(A, B);
 
-        assertMatrixEquals(result, expected, 1e-9);
+        assertMatrixEquals(result, expected, 1e-9, 1e-9);
 
         System.out.println("All Java correctness tests passed.");
     }

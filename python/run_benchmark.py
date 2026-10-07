@@ -42,10 +42,16 @@ def benchmark(A, B):
 
 def main():
     output = Path("data/results/python_results.csv")
-    output.parent.mkdir(parents=True, exist_ok=True)
+    raw_output = Path("data/results/raw/python_raw.csv")
 
-    with open(output, "w", newline="") as f:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    raw_output.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(output, "w", newline="") as f, \
+         open(raw_output, "w", newline="") as raw_f:
+
         writer = csv.writer(f)
+        raw_writer = csv.writer(raw_f)
 
         writer.writerow([
             "language",
@@ -56,6 +62,13 @@ def main():
             "iqr_seconds"
         ])
 
+        raw_writer.writerow([
+            "language",
+            "n",
+            "run",
+            "seconds"
+        ])
+
         for n in SIZES:
             print(f"Running Python n={n}...")
 
@@ -63,6 +76,14 @@ def main():
             B = load_matrix(f"data/input/n{n}_B.csv")
 
             times = benchmark(A, B)
+
+            for run_number, seconds in enumerate(times, start=1):
+                raw_writer.writerow([
+                    "Python",
+                    n,
+                    run_number,
+                    f"{seconds:.9f}"
+                ])
 
             median = statistics.median(times)
             q1 = statistics.quantiles(times, n=4)[0]
@@ -84,6 +105,7 @@ def main():
             )
 
     print(f"\nResults saved to {output}")
+    print(f"Raw measurements saved to {raw_output}")
 
 
 if __name__ == "__main__":

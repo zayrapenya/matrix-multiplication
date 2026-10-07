@@ -90,15 +90,27 @@ public class Benchmark {
 
     public static void main(String[] args) throws Exception {
 
-    Locale.setDefault(Locale.US);
+        Locale.setDefault(Locale.US);
 
-    try (PrintWriter writer =
-            new PrintWriter(new FileWriter(
-                    "data/results/java_results.csv")))  {
+        try (
+            PrintWriter writer =
+                new PrintWriter(
+                    new FileWriter("data/results/java_results.csv")
+                );
+
+            PrintWriter rawWriter =
+                new PrintWriter(
+                    new FileWriter("data/results/raw/java_raw.csv")
+                )
+        ) {
 
             writer.println(
                 "language,n,warmup_runs,measured_runs," +
                 "median_seconds,iqr_seconds"
+            );
+
+            rawWriter.println(
+                "language,n,run,seconds"
             );
 
             for (int n : SIZES) {
@@ -116,6 +128,15 @@ public class Benchmark {
                     );
 
                 double[] times = benchmark(A, B);
+
+                for (int i = 0; i < times.length; i++) {
+                    rawWriter.printf(
+                        "Java,%d,%d,%.9f%n",
+                        n,
+                        i + 1,
+                        times[i]
+                    );
+                }
 
                 double median = median(times);
 
@@ -143,6 +164,10 @@ public class Benchmark {
 
         System.out.println(
             "\nResults saved to data/results/java_results.csv"
+        );
+
+        System.out.println(
+            "Raw measurements saved to data/results/raw/java_raw.csv"
         );
     }
 }

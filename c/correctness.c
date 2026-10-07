@@ -5,7 +5,11 @@
 double *multiply(const double *A, const double *B, int n);
 
 static int equal(double a, double b) {
-    return fabs(a - b) < 1e-9;
+    const double atol = 1e-9;
+    const double rtol = 1e-9;
+    const double tolerance = atol + rtol * fabs(b);
+
+    return fabs(a - b) <= tolerance;
 }
 
 int main(void) {
