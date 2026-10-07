@@ -15,3 +15,8 @@ target/
 # IDE
 .idea/
 .vscode/
+
+# C executables
+c/benchmark
+c/correctness
+c/test_real_data
