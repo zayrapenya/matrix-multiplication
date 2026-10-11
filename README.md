@@ -1,22 +1,22 @@
-# Matrix Multiplication — Assignment 1
+# BIG DATA — Basic Matrix Multiplication in Different Languages
 
-**BIG DATA — Academic Year 2026–2027**
-**Degree in Data Science and Engineering**
-**Universidad de Las Palmas de Gran Canaria**
+**Academic Year:** 2026–2027  
+**Degree:** Data Science and Engineering  
+**University:** Universidad de Las Palmas de Gran Canaria
 
 ## Overview
 
-This project studies how matrix size affects the **execution time** and **memory usage** of a basic dense matrix multiplication implemented in **Python, Java and C**.
+This project studies how matrix size affects the execution time and memory usage of basic dense matrix multiplication implemented in Python, Java and C.
 
-The same algorithm and experimental protocol are used across the three languages to allow a fair comparison.
+The same algorithm, input data and experimental protocol are used across the three languages to support a fair comparison.
 
 ## Research Question
 
-> How does matrix size affect the execution time and memory usage of the basic triple-loop matrix multiplication implemented in Python, Java and C?
+How does matrix size affect the execution time and memory usage of basic triple-loop matrix multiplication implemented in Python, Java and C?
 
 ## Algorithm
 
-All implementations use the standard triple-loop matrix multiplication:
+All implementations use the standard triple-loop matrix multiplication algorithm:
 
 ```text
 for i
@@ -25,127 +25,168 @@ for i
             C[i][j] += A[i][k] * B[k][j]
 ```
 
-For two `n × n` matrices:
+For two \(n \times n\) matrices:
 
-* **Time complexity:** O(n³)
-* **Matrix storage:** O(n²)
+- **Time complexity:** \(O(n^3)\)
+- **Matrix storage complexity:** \(O(n^2)\)
 
 No optimized matrix multiplication libraries are used.
 
 ## Implementations
 
-The project contains equivalent implementations in:
+The project contains equivalent implementations in Python, Java and C. All use double-precision floating-point values and the same `i-j-k` loop order.
 
-* **Python**
-* **Java**
-* **C**
+The implementations use different storage mechanisms:
 
-All implementations use double-precision floating-point values and the same `i-j-k` loop order.
+- **Python:** nested lists.
+- **Java:** two-dimensional `double` arrays.
+- **C:** contiguous row-major memory allocation.
 
-The C implementation is compiled with `clang -O2`.
+These language and storage differences may affect execution time and process memory usage.
+
+The C implementation is compiled with Apple Clang using the `-O2` optimization flag.
 
 ## Experimental Setup
 
-The experiments were performed on:
+The experiments were performed on the following system:
 
-* macOS 14.6.1
-* Apple M1
-* 8 GB RAM
-* Python 3.14.7
-* OpenJDK 25.0.2
-* Apple Clang 15.0.0
+| Component | Configuration |
+|---|---|
+| Operating system | macOS 14.6.1 |
+| Processor | Apple M1 |
+| RAM | 8 GB |
+| Python | 3.14.7 |
+| Java runtime | OpenJDK 25.0.2 |
+| C compiler | Apple Clang 15.0.0 |
+| C compilation flags | `-O2 -Wall -Wextra -std=c17` |
 
-### Input data
+## Input Data
 
-Matrices are generated using a fixed random seed (`42`) with values in `[-1, 1]`.
+The input matrices are generated using a fixed random seed (`42`) and values uniformly distributed in the interval \([-1,1]\).
 
 The tested matrix sizes are:
 
-```text
-n = 50, 100, 200, 300, 500
+`n = 50, 100, 200, 300, 500`
+
+The same generated input files are used by all three implementations. Input generation and loading are excluded from the measured execution interval.
+
+Input data can be regenerated using:
+
+```bash
+python3 scripts/generate_input.py
 ```
 
-The same generated input matrices are used by all three implementations.
+## Timing Protocol
 
-### Timing protocol
+For each language and matrix size, the protocol uses:
 
-For each matrix size:
+- 3 warm-up runs.
+- 5 measured runs.
+- High-resolution monotonic timing.
+- Median execution time as the central estimate.
+- Interquartile range (IQR) as a measure of variability.
 
-* 3 warm-up runs
-* 5 measured runs
-* High-resolution monotonic timing
-* Matrix generation/loading excluded from the measured interval
-* Median execution time reported
-* IQR reported as a measure of variability
+The measured interval includes the multiplication, output allocation and initialization, and checksum consumption. Input generation and loading are excluded.
 
-The Java implementation uses warm-up runs to reduce the effect of JVM JIT compilation.
+The Java implementation uses warm-up runs to reduce the influence of JVM just-in-time (JIT) compilation on the measured results.
 
-### Memory protocol
+Raw timing measurements are preserved in `data/results/raw/`.
 
-Memory usage is measured using macOS:
+## Memory Measurement Protocol
 
-```text
+Memory usage is measured on macOS using:
+
+```bash
 /usr/bin/time -l
 ```
 
-The reported metric is the **maximum resident set size (RSS)** of the complete process.
+The reported metric is the maximum resident set size (RSS) of the complete process. Values are converted from bytes to mebibytes (MiB).
 
-Therefore, the memory measurements include runtime overhead from the Python interpreter, Java Virtual Machine and C process, rather than measuring only the matrices themselves.
+These measurements include runtime overhead from the Python interpreter, the Java Virtual Machine and the C process. They do not represent only the memory occupied by the input and output matrices.
+
+Consequently, process-level RSS should not be interpreted as a direct measurement of the algorithm's theoretical matrix-storage complexity.
 
 ## Results
 
-### Execution time
+### Execution Time
 
-|   n | Python (s) | Java (s) |    C (s) |
-| --: | ---------: | -------: | -------: |
-|  50 |   0.006658 | 0.000470 | 0.000160 |
-| 100 |   0.051679 | 0.003637 | 0.001756 |
-| 200 |   0.419857 | 0.007103 | 0.006710 |
-| 300 |   1.463930 | 0.023874 | 0.025850 |
-| 500 |   7.216606 | 0.114524 | 0.136088 |
+The following table reports median execution time in seconds.
 
-At `n = 500`, Python is substantially slower than Java and C. Java and C have similar performance, with Java being slightly faster in this particular experimental environment.
+| Matrix size | Python (s) | Java (s) | C (s) |
+|---:|---:|---:|---:|
+| 50 | 0.007852 | 0.000470 | 0.000249 |
+| 100 | 0.042107 | 0.003656 | 0.001739 |
+| 200 | 0.339358 | 0.007212 | 0.006816 |
+| 300 | 1.251765 | 0.023826 | 0.025437 |
+| 500 | 6.572772 | 0.116233 | 0.135725 |
 
-### Memory usage
+Python has substantially higher execution times than Java and C for all tested sizes. Java and C are much closer to each other, and their relative performance varies with matrix size. At \(n=500\), Java is slightly faster than C in this experimental environment.
 
-|   n | Python (MiB) | Java (MiB) | C (MiB) |
-| --: | -----------: | ---------: | ------: |
-|  50 |        11.97 |      45.38 |    1.02 |
-| 100 |        13.05 |      56.11 |    1.45 |
-| 200 |        18.19 |      81.27 |    2.36 |
-| 300 |        24.73 |      98.50 |    4.55 |
-| 500 |        45.52 |     129.44 |   10.75 |
+Execution time increases considerably as matrix size grows, consistent with the computational cost of triple-loop matrix multiplication.
 
-The RSS measurements show substantial differences between language runtimes. Java has the highest process RSS because the JVM introduces significant runtime overhead, while C has the lowest.
+### Memory Usage
 
-These measurements should not be interpreted as the memory required exclusively by the matrices.
+The following table reports maximum process RSS in MiB.
+
+| Matrix size | Python (MiB) | Java (MiB) | C (MiB) |
+|---:|---:|---:|---:|
+| 50 | 11.97 | 45.38 | 1.02 |
+| 100 | 13.05 | 56.11 | 1.45 |
+| 200 | 18.19 | 81.27 | 2.36 |
+| 300 | 24.73 | 98.50 | 4.55 |
+| 500 | 45.52 | 129.44 | 10.75 |
+
+Java has the highest measured process RSS, reflecting the memory overhead of the JVM. Python has intermediate RSS, while C has the lowest RSS for all tested matrix sizes.
+
+These values include runtime and process overhead and therefore do not measure the memory required exclusively by the matrices.
 
 ## Scaling Analysis
 
-The observed time exponents between `n = 50` and `n = 500` are:
+The observed scaling exponents are estimated from the measurements at \(n=50\) and \(n=500\), using:
+
+\[
+p = \frac{\log(T_{500}/T_{50})}
+{\log(500/50)}
+\]
+
+where \(T_n\) denotes the median execution time for matrix size \(n\). The same calculation is applied to RSS values for the memory exponent.
+
+### Execution-time exponents
 
 | Language | Observed time exponent |
-| -------- | ---------------------: |
-| Python   |                  3.035 |
-| Java     |                  2.387 |
-| C        |                  2.930 |
+|---|---:|
+| Python | 2.923 |
+| Java | 2.393 |
+| C | 2.736 |
 
-Python and C are very close to the theoretical cubic behaviour expected from the triple-loop algorithm.
+Python and C show observed time exponents relatively close to the theoretical cubic complexity, \(O(n^3)\). Java exhibits a lower exponent over the tested range.
 
-The Java exponent is lower, which can be explained by practical effects such as JIT compilation, runtime behaviour and the relatively small number of tested matrix sizes.
+These values are empirical estimates, not proofs of asymptotic complexity. Runtime effects, measurement variability and the limited range of tested matrix sizes can influence the estimates.
 
-The measured RSS exponents are lower than the theoretical O(n²) matrix-storage exponent because RSS includes a substantial fixed runtime overhead. Therefore, the theoretical O(n²) storage complexity remains the appropriate model for the matrices themselves.
+### Memory exponents
+
+| Language | Observed RSS exponent |
+|---|---:|
+| Python | 0.580 |
+| Java | 0.455 |
+| C | 1.025 |
+
+The observed RSS exponents are lower than the theoretical \(O(n^2)\) matrix-storage exponent because RSS includes runtime and process overhead that does not scale directly with matrix size.
+
+The theoretical \(O(n^2)\) storage complexity remains the appropriate model for storing the matrices themselves.
 
 ## Correctness
 
-Correctness was tested using:
+Correctness was checked using:
 
-* Known small matrices
-* Identity matrices
-* Zero matrices
-* Real generated input data
+- Known small matrices with expected results.
+- Identity matrices.
+- Zero matrices.
+- Generated input data.
 
-All three implementations produced the expected results.
+The implementations were tested against expected results using a numerical tolerance of \(10^{-9}\) for absolute and relative comparisons.
+
+All three implementations passed the correctness checks.
 
 ## Project Structure
 
@@ -159,7 +200,6 @@ matrix-multiplication/
 │   ├── benchmark.py
 │   ├── run_benchmark.py
 │   └── memory_benchmark.py
-│
 ├── java/
 │   ├── MatrixMultiplication.java
 │   ├── MatrixIO.java
@@ -167,7 +207,6 @@ matrix-multiplication/
 │   ├── TestRealData.java
 │   ├── Benchmark.java
 │   └── MemoryBenchmark.java
-│
 ├── c/
 │   ├── matrix_multiplication.c
 │   ├── matrix_io.c
@@ -176,17 +215,16 @@ matrix-multiplication/
 │   ├── benchmark.c
 │   ├── test_real_data.c
 │   └── memory_benchmark.c
-│
 ├── data/
 │   ├── input/
 │   └── results/
-│
+│       ├── raw/
+│       └── memory/
 ├── scripts/
 │   ├── generate_input.py
 │   ├── analyze_results.py
 │   ├── analyze_numbers.py
 │   └── estimate_scaling.py
-│
 └── report/
     └── figures/
 ```
@@ -195,37 +233,54 @@ matrix-multiplication/
 
 The generated figures are available in `report/figures/`:
 
-* `execution_time.png`
-* `execution_time_log.png`
-* `memory_usage.png`
-* `memory_usage_log.png`
+- `execution_time.png`
+- `execution_time_log.png`
+- `memory_usage.png`
+- `memory_usage_log.png`
 
 ## Reproducibility
 
-Input data can be regenerated with:
+The repository preserves the source code, generated input data, raw measurements, processed results, analysis scripts and figures.
+
+To regenerate the input data:
 
 ```bash
-python scripts/generate_input.py
+python3 scripts/generate_input.py
 ```
 
-The benchmark and analysis scripts can then be executed independently for each implementation.
+The processed result files are stored in `data/results/`:
 
-The experimental results are stored in:
+- `python_results.csv`
+- `java_results.csv`
+- `c_results.csv`
+- `combined_results.csv`
 
-```text
-data/results/
+Raw timing measurements are stored in `data/results/raw/`, while memory measurements are stored in `data/results/memory/`.
+
+The scaling exponents can be recalculated using:
+
+```bash
+python3 scripts/estimate_scaling.py
 ```
 
-and the combined dataset is:
+The repository is available at:
 
-```text
-data/results/combined_results.csv
-```
+https://github.com/zayrapenya/matrix-multiplication
+
+The reported benchmark results correspond to the data currently stored in `data/results/combined_results.csv`.
+
+## Limitations
+
+The experiments cover five matrix sizes, from \(n=50\) to \(n=500\), on a single computer and operating system. The conclusions should therefore be restricted to the tested environment.
+
+The measurements do not establish that one language will always be faster or use less memory on other systems, runtime versions or workloads. Process-level RSS includes runtime overhead and should not be treated as the exclusive memory consumption of the matrices.
+
+The observed scaling exponents are estimates over a limited range and may be affected by runtime behaviour, cache effects, measurement variability and fixed process overhead.
 
 ## Conclusion
 
-The experiment confirms the expected cubic growth of execution time for the basic matrix multiplication algorithm. Python shows the highest execution times, while Java and C provide considerably better performance under the tested conditions.
+The experiment shows that matrix size strongly affects the execution time of basic triple-loop matrix multiplication. Python has the highest execution times, while Java and C perform considerably better in the tested environment.
 
-The memory experiment shows that process-level RSS is strongly affected by language runtime overhead. C has the lowest measured RSS, Python is intermediate, and Java has the highest RSS because of the JVM.
+Process-level RSS also differs substantially between implementations. C has the lowest measured RSS, Python is intermediate, and Java has the highest RSS due to JVM overhead.
 
-Overall, the results demonstrate how the same algorithm can exhibit significantly different practical performance characteristics depending on the programming language and runtime environment.
+Overall, the results illustrate how programming language, runtime and memory representation can influence the practical performance of the same algorithm. The conclusions apply to the tested implementations and experimental environment.
