@@ -21,3 +21,8 @@ c/benchmark
 c/correctness
 c/test_real_data
 c/memory_benchmark
+
+# Local Python environment and generated Assignment 2 executables
+.venv/
+part2/benchmark
+part2/test_methods

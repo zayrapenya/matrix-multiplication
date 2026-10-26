@@ -82,3 +82,23 @@ For these experiments, changing the dense loop order to `i-k-j` gave the best de
 Raw measurements are in `results/raw_benchmarks.csv`, aggregated statistics in `results/summary.csv`, and additional calculated comparisons in `results/analysis_notes.txt`. The generated figures are in `figures/`.
 
 Run the benchmark and analysis instructions in `README.md` from the repository root. Record the exact compiler version and machine details when preparing the final submission.
+
+## 9. Hardware, environment and measurement scope
+
+The experiments were run on a MacBook Air with an Apple M1 chip (8 CPU cores: 4 performance and 4 efficiency cores) and 8 GB of RAM. The operating system was macOS 14.6.1, the C compiler was Apple Clang 15.0.0, and the Python version was 3.14.7. The benchmark uses C double-precision values and sequential execution.
+
+### Sparsity, density and nonzero counts
+
+The input generator's zero percentage (`zero_pct`) is the percentage of matrix entries deliberately set to zero. Density is the percentage of nonzero entries, calculated as `100 - zero_pct`. For example, an input with 90% zeros has a nominal density of 10%.
+
+The raw CSV records `nnz_A`, `nnz_B` and `nnz_C` for each measurement, where NNZ means the number of nonzero entries in the corresponding matrix. These fields allow the actual generated input and output counts to be inspected for every size and sparsity configuration. The CSR representation stores values, column indices and row pointers; the multiplication result is dense.
+
+### Experimental limits and memory caveat
+
+The largest tested dimension was 800 x 800. The largest median time among the dense baseline cases was approximately 0.586 seconds. These values describe the tested workload, not a guaranteed time limit for other machines or inputs. No hard execution timeout was enforced, and no strict peak-memory budget was verified.
+
+The benchmark records sampled resident memory, not peak memory. Consequently, the memory results must not be interpreted as proof that a method stays below a specified memory limit. The machine has 8 GB of physical RAM, but this experiment did not establish the peak memory consumed by each method.
+
+### Reproducibility details
+
+The benchmark input generator uses the deterministic seed `42 + n * 17 + zero_pct`. The benchmark script runs five repetitions for each configured method, dimension and zero percentage. To reproduce the measurements from the repository root, compile the benchmark as described in `README.md`, run `bash part2/scripts/run_benchmarks.sh`, and then run `python part2/scripts/analyze_results.py`. Running the benchmark script replaces `results/raw_benchmarks.csv`; preserve a copy first if the existing measurements need to be retained.
