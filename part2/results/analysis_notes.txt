@@ -2,36 +2,36 @@ Input measurements: 220
 Summary groups: 44
 
 Dense medians (zero_pct=0):
-n=100, basic: median=0.001754000s, IQR=0.000002000s
-n=100, reordered: median=0.000285000s, IQR=0.000010000s
-n=100, blocked: median=0.000433000s, IQR=0.000003000s
-n=200, basic: median=0.007914000s, IQR=0.001255000s
-n=200, reordered: median=0.001299000s, IQR=0.000042000s
-n=200, blocked: median=0.001616000s, IQR=0.000067000s
-n=500, basic: median=0.133325000s, IQR=0.000893000s
-n=500, reordered: median=0.019522000s, IQR=0.000106000s
-n=500, blocked: median=0.023363000s, IQR=0.000055000s
-n=800, basic: median=0.586206000s, IQR=0.001601000s
-n=800, reordered: median=0.081109000s, IQR=0.000401000s
-n=800, blocked: median=0.094841000s, IQR=0.000896000s
+n=100, basic: median=0.000815000s, IQR=0.000000000s
+n=100, reordered: median=0.000164000s, IQR=0.000000000s
+n=100, blocked: median=0.000289000s, IQR=0.000010000s
+n=200, basic: median=0.009376000s, IQR=0.002144000s
+n=200, reordered: median=0.001404000s, IQR=0.000009000s
+n=200, blocked: median=0.001648000s, IQR=0.000008000s
+n=500, basic: median=0.132658000s, IQR=0.000506000s
+n=500, reordered: median=0.018953000s, IQR=0.000072000s
+n=500, blocked: median=0.023457000s, IQR=0.000169000s
+n=800, basic: median=0.592104000s, IQR=0.002690000s
+n=800, reordered: median=0.079646000s, IQR=0.000873000s
+n=800, blocked: median=0.095121000s, IQR=0.000352000s
 
 CSR comparison (conversion included in total):
-n=100, zeros=50%: dense=0.000705000s, CSR multiply=0.000137000s, conversion=0.000097000s, CSR total=0.000234000s, speedup=3.013x
-n=200, zeros=50%: dense=0.006162000s, CSR multiply=0.001095000s, conversion=0.000382000s, CSR total=0.001477000s, speedup=4.172x
-n=500, zeros=50%: dense=0.132568000s, CSR multiply=0.015077000s, conversion=0.002637000s, CSR total=0.017714000s, speedup=7.484x
-n=800, zeros=50%: dense=0.587858000s, CSR multiply=0.059881000s, conversion=0.006192000s, CSR total=0.066073000s, speedup=8.897x
-n=100, zeros=90%: dense=0.000740000s, CSR multiply=0.000009000s, conversion=0.000030000s, CSR total=0.000039000s, speedup=18.974x
-n=200, zeros=90%: dense=0.006147000s, CSR multiply=0.000063000s, conversion=0.000115000s, CSR total=0.000178000s, speedup=34.534x
-n=500, zeros=90%: dense=0.132613000s, CSR multiply=0.000853000s, conversion=0.000736000s, CSR total=0.001589000s, speedup=83.457x
-n=800, zeros=90%: dense=0.589976000s, CSR multiply=0.003284000s, conversion=0.001808000s, CSR total=0.005092000s, speedup=115.863x
-n=100, zeros=95%: dense=0.000739000s, CSR multiply=0.000004000s, conversion=0.000021000s, CSR total=0.000025000s, speedup=29.560x
-n=200, zeros=95%: dense=0.006148000s, CSR multiply=0.000022000s, conversion=0.000079000s, CSR total=0.000101000s, speedup=60.871x
-n=500, zeros=95%: dense=0.132692000s, CSR multiply=0.000266000s, conversion=0.000496000s, CSR total=0.000762000s, speedup=174.136x
-n=800, zeros=95%: dense=0.588215000s, CSR multiply=0.001018000s, conversion=0.001272000s, CSR total=0.002290000s, speedup=256.862x
-n=100, zeros=99%: dense=0.000746000s, CSR multiply=0.000001000s, conversion=0.000016000s, CSR total=0.000017000s, speedup=43.882x
-n=200, zeros=99%: dense=0.006132000s, CSR multiply=0.000004000s, conversion=0.000053000s, CSR total=0.000057000s, speedup=107.579x
-n=500, zeros=99%: dense=0.133522000s, CSR multiply=0.000040000s, conversion=0.000316000s, CSR total=0.000356000s, speedup=375.062x
-n=800, zeros=99%: dense=0.588431000s, CSR multiply=0.000115000s, conversion=0.000827000s, CSR total=0.000942000s, speedup=624.661x
+n=100, zeros=50%: dense=0.000745000s, CSR multiply=0.000137000s, conversion=0.000096000s, CSR total=0.000233000s, speedup=3.197x
+n=200, zeros=50%: dense=0.006167000s, CSR multiply=0.001119000s, conversion=0.000386000s, CSR total=0.001505000s, speedup=4.098x
+n=500, zeros=50%: dense=0.132278000s, CSR multiply=0.015084000s, conversion=0.002453000s, CSR total=0.017537000s, speedup=7.543x
+n=800, zeros=50%: dense=0.586540000s, CSR multiply=0.059211000s, conversion=0.006337000s, CSR total=0.065548000s, speedup=8.948x
+n=100, zeros=90%: dense=0.000727000s, CSR multiply=0.000008000s, conversion=0.000029000s, CSR total=0.000037000s, speedup=19.649x
+n=200, zeros=90%: dense=0.006178000s, CSR multiply=0.000064000s, conversion=0.000110000s, CSR total=0.000174000s, speedup=35.506x
+n=500, zeros=90%: dense=0.132201000s, CSR multiply=0.000856000s, conversion=0.000780000s, CSR total=0.001636000s, speedup=80.807x
+n=800, zeros=90%: dense=0.584820000s, CSR multiply=0.003305000s, conversion=0.001823000s, CSR total=0.005128000s, speedup=114.044x
+n=100, zeros=95%: dense=0.000750000s, CSR multiply=0.000003000s, conversion=0.000020000s, CSR total=0.000023000s, speedup=32.609x
+n=200, zeros=95%: dense=0.006148000s, CSR multiply=0.000023000s, conversion=0.000079000s, CSR total=0.000102000s, speedup=60.275x
+n=500, zeros=95%: dense=0.132255000s, CSR multiply=0.000263000s, conversion=0.000491000s, CSR total=0.000754000s, speedup=175.405x
+n=800, zeros=95%: dense=0.586663000s, CSR multiply=0.000985000s, conversion=0.001296000s, CSR total=0.002281000s, speedup=257.196x
+n=100, zeros=99%: dense=0.000728000s, CSR multiply=0.000001000s, conversion=0.000013000s, CSR total=0.000014000s, speedup=52.000x
+n=200, zeros=99%: dense=0.006194000s, CSR multiply=0.000004000s, conversion=0.000054000s, CSR total=0.000058000s, speedup=106.793x
+n=500, zeros=99%: dense=0.132681000s, CSR multiply=0.000047000s, conversion=0.000320000s, CSR total=0.000367000s, speedup=361.529x
+n=800, zeros=99%: dense=0.590133000s, CSR multiply=0.000117000s, conversion=0.000819000s, CSR total=0.000936000s, speedup=630.484x
 
 Checksum comparisons (spread across methods/repetitions):
 No checksum differences detected within tolerance 1e-7.

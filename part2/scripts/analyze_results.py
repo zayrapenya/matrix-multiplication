@@ -68,7 +68,7 @@ for (method, n, zero_pct), data in sorted(groups.items()):
 
 summary_path = OUT / "summary.csv"
 with summary_path.open("w", newline="") as f:
-    writer = csv.DictWriter(f, fieldnames=summary[0].keys())
+    writer = csv.DictWriter(f, fieldnames=summary[0].keys(), lineterminator="\n")
     writer.writeheader()
     writer.writerows(summary)
 
