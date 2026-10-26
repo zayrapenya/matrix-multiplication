@@ -1,0 +1,39 @@
+Input measurements: 220
+Summary groups: 44
+
+Dense medians (zero_pct=0):
+n=100, basic: median=0.001754000s, IQR=0.000002000s
+n=100, reordered: median=0.000285000s, IQR=0.000010000s
+n=100, blocked: median=0.000433000s, IQR=0.000003000s
+n=200, basic: median=0.007914000s, IQR=0.001255000s
+n=200, reordered: median=0.001299000s, IQR=0.000042000s
+n=200, blocked: median=0.001616000s, IQR=0.000067000s
+n=500, basic: median=0.133325000s, IQR=0.000893000s
+n=500, reordered: median=0.019522000s, IQR=0.000106000s
+n=500, blocked: median=0.023363000s, IQR=0.000055000s
+n=800, basic: median=0.586206000s, IQR=0.001601000s
+n=800, reordered: median=0.081109000s, IQR=0.000401000s
+n=800, blocked: median=0.094841000s, IQR=0.000896000s
+
+CSR comparison (conversion included in total):
+n=100, zeros=50%: dense=0.000705000s, CSR multiply=0.000137000s, conversion=0.000097000s, CSR total=0.000234000s, speedup=3.013x
+n=200, zeros=50%: dense=0.006162000s, CSR multiply=0.001095000s, conversion=0.000382000s, CSR total=0.001477000s, speedup=4.172x
+n=500, zeros=50%: dense=0.132568000s, CSR multiply=0.015077000s, conversion=0.002637000s, CSR total=0.017714000s, speedup=7.484x
+n=800, zeros=50%: dense=0.587858000s, CSR multiply=0.059881000s, conversion=0.006192000s, CSR total=0.066073000s, speedup=8.897x
+n=100, zeros=90%: dense=0.000740000s, CSR multiply=0.000009000s, conversion=0.000030000s, CSR total=0.000039000s, speedup=18.974x
+n=200, zeros=90%: dense=0.006147000s, CSR multiply=0.000063000s, conversion=0.000115000s, CSR total=0.000178000s, speedup=34.534x
+n=500, zeros=90%: dense=0.132613000s, CSR multiply=0.000853000s, conversion=0.000736000s, CSR total=0.001589000s, speedup=83.457x
+n=800, zeros=90%: dense=0.589976000s, CSR multiply=0.003284000s, conversion=0.001808000s, CSR total=0.005092000s, speedup=115.863x
+n=100, zeros=95%: dense=0.000739000s, CSR multiply=0.000004000s, conversion=0.000021000s, CSR total=0.000025000s, speedup=29.560x
+n=200, zeros=95%: dense=0.006148000s, CSR multiply=0.000022000s, conversion=0.000079000s, CSR total=0.000101000s, speedup=60.871x
+n=500, zeros=95%: dense=0.132692000s, CSR multiply=0.000266000s, conversion=0.000496000s, CSR total=0.000762000s, speedup=174.136x
+n=800, zeros=95%: dense=0.588215000s, CSR multiply=0.001018000s, conversion=0.001272000s, CSR total=0.002290000s, speedup=256.862x
+n=100, zeros=99%: dense=0.000746000s, CSR multiply=0.000001000s, conversion=0.000016000s, CSR total=0.000017000s, speedup=43.882x
+n=200, zeros=99%: dense=0.006132000s, CSR multiply=0.000004000s, conversion=0.000053000s, CSR total=0.000057000s, speedup=107.579x
+n=500, zeros=99%: dense=0.133522000s, CSR multiply=0.000040000s, conversion=0.000316000s, CSR total=0.000356000s, speedup=375.062x
+n=800, zeros=99%: dense=0.588431000s, CSR multiply=0.000115000s, conversion=0.000827000s, CSR total=0.000942000s, speedup=624.661x
+
+Checksum comparisons (spread across methods/repetitions):
+No checksum differences detected within tolerance 1e-7.
+
+Memory values are sampled resident memory, not peak RSS. CSR conversion time is recorded separately and added to multiplication time for end-to-end comparisons.
