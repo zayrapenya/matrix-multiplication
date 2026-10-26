@@ -29,12 +29,12 @@ Median multiplication time, in seconds:
 
 | Dimension | Basic | Reordered | Blocked |
 |---:|---:|---:|---:|
-| 100 | 0.001754 | 0.000285 | 0.000433 |
-| 200 | 0.007914 | 0.001299 | 0.001616 |
-| 500 | 0.133325 | 0.019522 | 0.023363 |
-| 800 | 0.586206 | 0.081109 | 0.094841 |
+| 100 | 0.000815 | 0.000164 | 0.000289 |
+| 200 | 0.009376 | 0.001404 | 0.001648 |
+| 500 | 0.132658 | 0.018953 | 0.023457 |
+| 800 | 0.592104 | 0.079646 | 0.095121 |
 
-The reordered implementation was the fastest dense method at every tested size. At dimension 800, its median time was approximately 7.23 times lower than the basic implementation. Blocking was also faster than the basic method, but it did not outperform loop reordering in these experiments.
+The reordered implementation was the fastest dense method at every tested size. At dimension 800, its median time was approximately 7.43 times lower than the basic implementation. Blocking was also faster than the basic method, but it did not outperform loop reordering in these experiments.
 
 The results are consistent with loop order having a substantial effect on memory access patterns. The measurements do not establish that the same ordering will be fastest on every processor or for every matrix size.
 
@@ -44,22 +44,22 @@ The following table compares the dense baseline with CSR. CSR total time include
 
 | Dimension | Zeros | Dense median (s) | CSR multiply (s) | Conversion (s) | CSR total (s) | Speedup |
 |---:|---:|---:|---:|---:|---:|---:|
-| 100 | 50% | 0.000705 | 0.000137 | 0.000097 | 0.000234 | 3.01x |
-| 200 | 50% | 0.006162 | 0.001095 | 0.000382 | 0.001477 | 4.17x |
-| 500 | 50% | 0.132568 | 0.015077 | 0.002637 | 0.017714 | 7.48x |
-| 800 | 50% | 0.587858 | 0.059881 | 0.006192 | 0.066073 | 8.90x |
-| 100 | 90% | 0.000740 | 0.000009 | 0.000030 | 0.000039 | 18.97x |
-| 200 | 90% | 0.006147 | 0.000063 | 0.000115 | 0.000178 | 34.53x |
-| 500 | 90% | 0.132613 | 0.000853 | 0.000736 | 0.001589 | 83.46x |
-| 800 | 90% | 0.589976 | 0.003284 | 0.001808 | 0.005092 | 115.86x |
-| 100 | 95% | 0.000739 | 0.000004 | 0.000021 | 0.000025 | 29.56x |
-| 200 | 95% | 0.006148 | 0.000022 | 0.000079 | 0.000101 | 60.87x |
-| 500 | 95% | 0.132692 | 0.000266 | 0.000496 | 0.000762 | 174.14x |
-| 800 | 95% | 0.588215 | 0.001018 | 0.001272 | 0.002290 | 256.86x |
-| 100 | 99% | 0.000746 | 0.000001 | 0.000016 | 0.000017 | 43.88x |
-| 200 | 99% | 0.006132 | 0.000004 | 0.000053 | 0.000057 | 107.58x |
-| 500 | 99% | 0.133522 | 0.000040 | 0.000316 | 0.000356 | 375.06x |
-| 800 | 99% | 0.588431 | 0.000115 | 0.000827 | 0.000942 | 624.66x |
+| 100 | 50% | 0.000745 | 0.000137 | 0.000096 | 0.000233 | 3.20x |
+| 200 | 50% | 0.006167 | 0.001119 | 0.000386 | 0.001505 | 4.10x |
+| 500 | 50% | 0.132278 | 0.015084 | 0.002453 | 0.017537 | 7.54x |
+| 800 | 50% | 0.586540 | 0.059211 | 0.006337 | 0.065548 | 8.95x |
+| 100 | 90% | 0.000727 | 0.000008 | 0.000029 | 0.000037 | 19.65x |
+| 200 | 90% | 0.006178 | 0.000064 | 0.000110 | 0.000174 | 35.51x |
+| 500 | 90% | 0.132201 | 0.000856 | 0.000780 | 0.001636 | 80.81x |
+| 800 | 90% | 0.584820 | 0.003305 | 0.001823 | 0.005128 | 114.04x |
+| 100 | 95% | 0.000750 | 0.000003 | 0.000020 | 0.000023 | 32.61x |
+| 200 | 95% | 0.006148 | 0.000023 | 0.000079 | 0.000102 | 60.27x |
+| 500 | 95% | 0.132255 | 0.000263 | 0.000491 | 0.000754 | 175.40x |
+| 800 | 95% | 0.586663 | 0.000985 | 0.001296 | 0.002281 | 257.20x |
+| 100 | 99% | 0.000728 | 0.000001 | 0.000013 | 0.000014 | 52.00x |
+| 200 | 99% | 0.006194 | 0.000004 | 0.000054 | 0.000058 | 106.79x |
+| 500 | 99% | 0.132681 | 0.000047 | 0.000320 | 0.000367 | 361.53x |
+| 800 | 99% | 0.590133 | 0.000117 | 0.000819 | 0.000936 | 630.48x |
 
 CSR becomes increasingly advantageous as the proportion of zeros rises. At low sparsity, conversion overhead is a more significant fraction of total time. At high sparsity, skipping zero entries greatly reduces the work required by the sparse multiplication algorithm.
 
