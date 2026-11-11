@@ -1,0 +1,14 @@
+date: 2026-11-11T11:31:26Z
+os: Darwin 23.6.0 arm64
+ProductName:		macOS
+ProductVersion:		14.6.1
+BuildVersion:		23G93
+cpu: Apple M1
+physical_cores: 8
+logical_processors: 8
+perflevel0: Performance physical=4
+perflevel1: Efficiency physical=4
+ram_bytes: 8589934592
+power: Now drawing from 'Battery Power'
+compiler: Apple clang version 15.0.0 (clang-1500.3.9.4)
+python: Python 3.13.9
