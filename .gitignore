@@ -26,3 +26,11 @@ c/memory_benchmark
 .venv/
 part2/benchmark
 part2/test_methods
+part3/bin/
+part4/target/
+part4/results/tmp/
+part4/results/logs/
+part3/bin/
+part4/target/
+part4/results/tmp/
+part4/results/logs/
