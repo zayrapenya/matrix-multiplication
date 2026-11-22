@@ -21,3 +21,17 @@ c/benchmark
 c/correctness
 c/test_real_data
 c/memory_benchmark
+
+# Local Python environment and generated Assignment 2 executables
+.venv/
+part2/benchmark
+part2/test_methods
+part3/bin/
+part4/target/
+part4/results/tmp/
+part4/results/logs/
+part3/bin/
+part4/target/
+part4/results/tmp/
+part4/results/logs/
+part4/overleaf_ia4.zip

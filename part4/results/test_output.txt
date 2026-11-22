@@ -1,0 +1,6 @@
+workers=1  max rel. error seq vs naive: 0.000e+00  max abs diff dist vs seq: 0.000e+00
+ALL TESTS PASSED
+workers=2  max rel. error seq vs naive: 0.000e+00  max abs diff dist vs seq: 0.000e+00
+ALL TESTS PASSED
+workers=3  max rel. error seq vs naive: 0.000e+00  max abs diff dist vs seq: 0.000e+00
+ALL TESTS PASSED
